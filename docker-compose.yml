@@ -1,0 +1,25 @@
+services:
+
+  api:
+    build: .
+    container_name: api-veiculos
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - mongo
+
+  mysql:
+    image: mysql:8
+    container_name: mysql-api
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: api_db
+
+  mongo:
+    image: mongo
+    container_name: mongo-api
+    restart: always

@@ -1,36 +1,49 @@
 # API Veículos e Usuários
 
-## Descrição
-
-Este projeto consiste em uma API desenvolvida em Node.js utilizando Express, Docker, MongoDB e MySQL. O objetivo é fornecer uma estrutura para gerenciamento de usuários e veículos através de uma arquitetura simples baseada em containers.
+Projeto desenvolvido utilizando Node.js, Express, MySQL, MongoDB e Docker.
 
 ## Tecnologias Utilizadas
 
-* Node.js
-* Express.js
-* Docker
-* Docker Compose
-* MongoDB
-* MySQL
-* Sequelize
-* Mongoose
-* JWT
-* Dotenv
+- Node.js
+- Express
+- Sequelize
+- MySQL
+- MongoDB
+- Mongoose
+- Docker
+- Docker Compose
 
-## Funcionalidades
+---
 
-* Inicialização da API com Express.
-* Conexão com banco de dados MongoDB.
-* Conexão com banco de dados MySQL utilizando Sequelize.
-* Criação automática da tabela de usuários.
-* Organização do projeto em camadas.
-* Execução completa utilizando Docker Compose.
+## Estrutura do Projeto
+
+```
+api-veiculos-usuarios/
+│
+├── src/
+│   ├── config/
+│   │   ├── mongodb.js
+│   │   └── mysql.js
+│   │
+│   ├── models/
+│   │   └── User.js
+│   │
+│   └── app.js
+│
+├── .env
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+└── server.js
+```
+
+---
 
 ## Configuração do Ambiente
 
-### Variáveis de Ambiente
+### Arquivo .env
 
-Arquivo `.env`:
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 PORT=3000
@@ -46,15 +59,17 @@ MYSQL_DATABASE=api_db
 MONGO_URI=mongodb://mongo:27017/api_db
 ```
 
+---
+
 ## Executando com Docker
 
-### Construir os containers
+### Construir as imagens
 
 ```bash
 docker compose build
 ```
 
-### Iniciar a aplicação
+### Iniciar os containers
 
 ```bash
 docker compose up
@@ -63,40 +78,37 @@ docker compose up
 Ou:
 
 ```bash
-docker compose up --build
+docker compose up -d
 ```
 
-### Encerrar os containers
+---
 
-```bash
-docker compose down
-```
-
-## Serviços Docker
+## Containers Criados
 
 ### API
 
-* Porta: 3000
+- Porta: 3000
 
 ### MySQL
 
-* Banco: api_db
-* Usuário: root
-* Senha: root
+- Porta interna: 3306
+- Banco: api_db
 
 ### MongoDB
 
-* Porta padrão: 27017
+- Porta interna: 27017
+
+---
 
 ## Testando a API
 
-Após iniciar os containers, acessar:
+Após iniciar os containers:
 
-```
+```bash
 http://localhost:3000
 ```
 
-Resposta esperada:
+Retorno esperado:
 
 ```json
 {
@@ -104,25 +116,83 @@ Resposta esperada:
 }
 ```
 
+---
+
 ## Modelo de Usuário
 
-A tabela de usuários possui os seguintes campos:
+Atualmente o sistema possui a entidade User.
 
-| Campo | Tipo    |
-| ----- | ------- |
-| id    | Integer |
-| nome  | String  |
-| email | String  |
-| senha | String  |
+Campos:
 
-O campo `email` possui restrição de unicidade.
+| Campo | Tipo |
+|---------|---------|
+| id | Integer |
+| nome | String |
+| email | String |
+| senha | String |
 
-## Objetivo Acadêmico
+O modelo é criado automaticamente pelo Sequelize ao iniciar a aplicação.
 
-Este projeto foi desenvolvido com finalidade acadêmica para praticar:
+---
 
-* Desenvolvimento de APIs REST.
-* Integração com bancos de dados relacionais e não relacionais.
-* Utilização de Docker e Docker Compose.
-* Organização de projetos Node.js.
-* Persistência de dados utilizando Sequelize e Mongoose.
+## Comandos Docker Úteis
+
+### Ver containers ativos
+
+```bash
+docker ps
+```
+
+### Ver logs da API
+
+```bash
+docker logs api-veiculos
+```
+
+### Ver logs do MySQL
+
+```bash
+docker logs mysql-api
+```
+
+### Ver logs do MongoDB
+
+```bash
+docker logs mongo-api
+```
+
+### Parar os containers
+
+```bash
+docker compose down
+```
+
+---
+
+## Status Atual do Projeto
+
+Funcionalidades implementadas:
+
+- Estrutura inicial da API
+- Configuração do Express
+- Integração com MongoDB
+- Integração com MySQL
+- Docker Compose configurado
+- Modelo User criado
+- Endpoint de teste da API
+
+Endpoint disponível:
+
+```http
+GET /
+```
+
+Resposta:
+
+```json
+{
+  "mensagem": "API funcionando"
+}
+```
+
+---
